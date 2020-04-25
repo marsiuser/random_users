@@ -4,27 +4,27 @@
                 Users list:
             </md-toolbar>
     <md-card class="user-list" v-for="(user, index) in users" :key="index">
-      <md-card-header>
-        <div class="md-title"><p>{{ user.name.first }} {{ user.name.last }}</p></div>
-      </md-card-header>
+        <md-card-header>
+          <div class="md-title"><p>{{ user.name.first }} {{ user.name.last }}</p></div>
+        </md-card-header>
 
-      <md-card-content>
-        <avatar :image="user.picture.medium" :size="80"/>
-        <div class="user-id">
-            <p><span>ID: </span> {{ user.id.value }}</p>
+        <md-card-content>
+          <avatar :image="user.picture.medium" :size="80"/>
+          <div class="user-id">
+              <p><span>ID: </span> {{ user.id.value }}</p>
+          </div>
+        </md-card-content>
+
+        <md-card-actions>
+              <md-button @click="show(user.id.value)">Show info</md-button>
+        </md-card-actions>
+        <div class="add-info"  v-if="visible && currentId===user.id.value" :key="index">
+            <p>Adress: {{user.location.city}}, {{user.location.street.name}}, {{user.location.street.number}}</p>
+            <p>E-mail : {{user.email}}</p>
+            <p>Gender : {{user.gender}}</p>
+            <p>Dob : {{user.dob.date}}</p>
+            <p>Phone number: {{user.phone}}</p>
         </div>
-      </md-card-content>
-
-      <md-card-actions>
-        <md-button @click="show">Show info</md-button>
-      </md-card-actions>
-      <div v-if="visible" :key="index">
-        <p>Adress: {{user.location.city}}, {{user.location.street.name}}, {{user.location.street.number}}</p>
-        <p>E-mail : {{user.email}}</p>
-        <p>Gender : {{user.gender}}</p>
-        <p>Dob : {{user.dob.date}}</p>
-        <p>Phone number: {{user.phone}}</p>
-      </div>
     </md-card>
     </div>
 </template>
@@ -39,7 +39,8 @@ export default {
   data () {
     return {
       users: {},
-      visible : false
+      visible : false,
+      currentId: ''
     }
   },
   mounted () {
@@ -52,8 +53,9 @@ export default {
     })
   },
   methods:{
-    show(){
-        this.visible = !this.visible;
+    show(id){
+      this.visible = !this.visible;
+      this.currentId = id;
     },
   }
 }
@@ -66,6 +68,9 @@ export default {
 }
 .md-drawer.md-permanent{
     width: 220px;
+}
+.add-info{
+    padding: 10px;
 }
 .md-app{
     padding: 0px 30px;
