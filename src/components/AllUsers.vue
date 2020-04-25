@@ -19,11 +19,7 @@
               <md-button @click="show(user.id.value)">Show info</md-button>
         </md-card-actions>
         <div class="add-info"  v-if="visible && currentId===user.id.value" :key="index">
-            <p>Adress: {{user.location.city}}, {{user.location.street.name}}, {{user.location.street.number}}</p>
-            <p>E-mail : {{user.email}}</p>
-            <p>Gender : {{user.gender}}</p>
-            <p>Dob : {{user.dob.date}}</p>
-            <p>Phone number: {{user.phone}}</p>
+            <DetailsInfo v-bind:user_data="user" />
         </div>
     </md-card>
     </div>
@@ -31,11 +27,12 @@
 
 <script>
 import Avatar from 'vue-avatar-component'
-
 export default {
   components: { 
-   Avatar
+   Avatar,
+    DetailsInfo: () => import('./DetailsInfo')
   },
+  props:{},
   data () {
     return {
       users: {},
@@ -85,20 +82,16 @@ export default {
 .md-elevation-4{
     box-shadow: none;
 }
-
 .md-card-content{
     text-align: center;
 }
-
 .user-id span{
     font-weight: 500;
 }
-
 .user-list{
     max-width: 200px;
     width: 100%;
 }
-
 .md-card-content{
     padding: 0px;
 }

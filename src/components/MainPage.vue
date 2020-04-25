@@ -10,7 +10,7 @@
               <AllUsers />
             </md-app-drawer>
             <md-app-content>
-                <DetailsInfo />
+                <!-- <DetailsInfo /> -->
             </md-app-content>
         </md-app>
       </div>
@@ -21,8 +21,7 @@
 export default {
   components: { 
       Header: () => import('./Header'),
-      AllUsers: () => import('./AllUsers'),
-      DetailsInfo: () => import('./DetailsInfo')
+      AllUsers: () => import('./AllUsers')
   }
 }
 </script>
