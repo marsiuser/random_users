@@ -3,14 +3,12 @@
       <div class="page-container">
         <Header />
         <md-app>
-            <md-app-toolbar class="md-primary">
+            <md-app-toolbar>
               <span class="md-title">Detailed user information</span>
             </md-app-toolbar>
-            <md-app-drawer md-permanent="full">
-              <AllUsers />
-            </md-app-drawer>
             <md-app-content>
-                <!-- <DetailsInfo /> -->
+              <AllUsers />
+              <DetailsInfo />
             </md-app-content>
         </md-app>
       </div>
@@ -21,7 +19,8 @@
 export default {
   components: { 
       Header: () => import('./Header'),
-      AllUsers: () => import('./AllUsers')
+      AllUsers: () => import('./AllUsers'),
+      DetailsInfo: () => import('./DetailsInfo')
   }
 }
 </script>
