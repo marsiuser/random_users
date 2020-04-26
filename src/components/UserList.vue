@@ -3,29 +3,20 @@
     <md-toolbar class="md-transparent" md-elevation="0">
         Users list:
     </md-toolbar>
-    <div class="user-list" v-for="(user, index) in users" :key="index">
-          <div class="help_wrap">
-            <ListUsers v-bind:user_info="user" />
-            <md-card-actions>
-                  <md-button @click="show(user.id.value)">Show info</md-button>
-            </md-card-actions>
-          </div>
-          <md-app-content class="md-primary">
-            <div class="add-info"  v-if="visible && currentId===user.id.value" :key="index">
-                <DetailsInfo v-bind:user_data="user" />
-            </div>
-          </md-app-content>
+    <div class="user-list">
+            <UserItem v-for="(user, i) in users" :key="user.id" :user="user" :index="(i+1)" @viewDetails="viewDetails" />
         </div>
     </div>
 </template>
 
 <script>
 import Avatar from 'vue-avatar-component'
+import _ from 'lodash';
+
 export default {
   components: { 
    Avatar,
-    DetailsInfo: () => import('./DetailsInfo'),
-      ListUsers: () => import('./ListUsers')
+    UserItem: () => import('./UserItem')
   },
   props:{},
   data () {
@@ -45,10 +36,11 @@ export default {
     })
   },
   methods:{
-    show(id){
-      this.visible = !this.visible;
-      this.currentId = id;
-    },
+      viewDetails(id){
+      let userToView = _.find(this.users);
+      this.$emit("viewDetails", userToView);
+      console.log(userToView);
+    }
   }
 }
 </script>
@@ -90,7 +82,4 @@ export default {
     padding: 0px;
 }
 
-.user-list{
-  display: flex;
-}
 </style>
